@@ -1,3 +1,8 @@
-import { lib } from "./lib"
+class Strive {
+    public static movableCircle() {
+        circle(width/2, height/2, 20);
+    }
+}
 
-console.log(lib)
+//@ts-ignore
+window.Strive = Strive;
