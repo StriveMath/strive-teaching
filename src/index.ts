@@ -1,6 +1,8 @@
+import MovableCircle from "./lib/movableCircle" 
+
 class Strive {
-    public static movableCircle() {
-        circle(width/2, height/2, 20);
+    public static createMovableCircle(x:number, y:number, d:number) {
+        return new MovableCircle(x,y,d);
     }
 }
 
