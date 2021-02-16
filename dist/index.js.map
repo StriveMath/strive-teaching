@@ -1,0 +1,1 @@
+{"version":3,"sources":["lib.ts","index.ts"],"names":[],"mappings":";AAAa,aAAA,OAAA,eAAA,QAAA,aAAA,CAAA,OAAA,IAAA,QAAA,WAAA,EAAA,QAAA,MAAQ;;ACErB,aAAA,OAAA,eAAA,QAAA,aAAA,CAAA,OAAA,IAFA,IAAA,EAAA,QAAA,SAEA,QAAQ,IAAI,EAAA","file":"index.js","sourceRoot":"../src","sourcesContent":["export const hello = \"Hello\"\n","import { hello } from \"./lib\"\n\nconsole.log(hello)"]}
