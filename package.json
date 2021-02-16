@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.ts --out-file strive.js --out-dir dist",
-    "dev": "parcel watch src/index.ts --out-file strive.js --out-dir dist"
+    "build": "parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
+    "dev": "parcel watch src/index.ts --out-file strive.js --out-dir dist --no-source-maps"
   },
   "keywords": [],
   "author": "",
