@@ -1,10 +1,11 @@
 let anyMoving = false;
 
 class MovableCircle {
-  x: number;
-  y: number;
-  d: number;
-  isMovable: boolean;
+  public x: number;
+  public y: number;
+  public d: number;
+  private isMovable: boolean;
+  
   constructor(x: number, y: number, d: number) {
     this.x = x;
     this.y = y;
@@ -14,7 +15,7 @@ class MovableCircle {
     _renderer.elt.addEventListener("mouseup", this.mouseReleased);
   }
 
-  draw() {
+  public draw() {
     push();
     if (this.isMouseHovering() || this.isMovable) {
       fill(255);
@@ -30,11 +31,11 @@ class MovableCircle {
     pop();
   }
 
-  isMouseHovering() {
+  private isMouseHovering() {
     return dist(mouseX, mouseY, this.x, this.y) < this.d / 2;
   }
 
-  makeMovable() {
+  private makeMovable() {
     if (this.isMouseHovering() && !anyMoving) {
       if (mouseIsPressed) {
         anyMoving = true;
@@ -43,7 +44,7 @@ class MovableCircle {
     }
   }
 
-  mouseReleased = () => {
+  private mouseReleased = () => {
     anyMoving = false;
     this.isMovable = false;
   };
