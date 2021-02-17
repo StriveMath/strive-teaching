@@ -9,7 +9,7 @@
     "dev": "parcel watch src/index.ts --out-file strive.js --out-dir dist --no-source-maps"
   },
   "keywords": [],
-  "author": "",
+  "author": "<jithinks112@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "p5": "^1.2.0"
@@ -18,5 +18,6 @@
     "@types/p5": "^0.9.1",
     "parcel-bundler": "^1.12.4",
     "typescript": "^4.1.5"
-  }
+  },
+  "repository": "https://github.com/StriveMath/strive.git"
 }
