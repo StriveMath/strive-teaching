@@ -5,7 +5,7 @@ class MovableCircle {
   public y: number;
   public d: number;
   private isMovable: boolean;
-  
+
   constructor(x: number, y: number, d: number) {
     this.x = x;
     this.y = y;
@@ -19,8 +19,6 @@ class MovableCircle {
     push();
     if (this.isMouseHovering() || this.isMovable) {
       fill(255);
-    } else {
-      fill(0);
     }
     if (this.isMovable) {
       this.x += mouseX - pmouseX;
