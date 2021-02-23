@@ -198,10 +198,67 @@ var movableCircle_1 = __importDefault(require("./lib/movableCircle"));
 var Strive =
 /** @class */
 function () {
-  function Strive() {}
+  function Strive() {
+  }
 
   Strive.createMovableCircle = function (x, y, d) {
     return new movableCircle_1.default(x, y, d);
+  };
+
+  Strive.drawTickAxes = function (lineColor, thickness, spacing, xoffset, yoffset) {
+    if (lineColor === void 0) {
+      lineColor = "rgb(20,45,217)";
+    }
+
+    if (thickness === void 0) {
+      thickness = 3;
+    }
+
+    if (spacing === void 0) {
+      spacing = 50;
+    }
+
+    if (xoffset === void 0) {
+      xoffset = 0;
+    }
+
+    if (yoffset === void 0) {
+      yoffset = 0;
+    }
+
+    push();
+    translate(xoffset, yoffset);
+
+    for (var i = 0; i < height; i += spacing) {
+      //vertical tickmarks
+      stroke(lineColor);
+      strokeWeight(thickness);
+      line(5, i, -5, i);
+      line(5, -i, -5, -i); //horizontal tickmarks
+
+      line(i, +5, i, -5);
+      line(-i, +5, -i, -5);
+      fill("white");
+      noStroke();
+      text(i, 16, i);
+      text(-i, 16, -i);
+      text(i, i, 16);
+      text(-i, -i, 16);
+      strokeWeight(0.25);
+      stroke(color("rgba(255,255,255,0.6)"));
+      line(i, -height, i, height);
+      line(-i, -height, -i, height);
+      line(-width, i, width, i);
+      line(-width, -i, width, -i);
+    }
+
+    stroke(lineColor);
+    strokeWeight(5); //horizontal line
+
+    line(-width, 0, width, 0); //vertical line
+
+    line(0, height, 0, -height);
+    pop();
   };
 
   return Strive;
@@ -237,7 +294,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45199" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54618" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
