@@ -1,6 +1,12 @@
+import math from "mathjs";
 import MovableCircle from "./lib/movableCircle";
+import {Transformer} from "./lib/transformer";
+
+window.math = math;
 
 class Strive {
+    static transformer = new Transformer();
+
     public static createMovableCircle(x: number, y: number, d: number) {
         return new MovableCircle(x, y, d);
     }
@@ -53,6 +59,10 @@ class Strive {
 
         pop();
     };
+
+    public static translate(x: number, y: number) {
+        this.transformer.translate(x, y);
+    }
 }
 
 //@ts-ignore
