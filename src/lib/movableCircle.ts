@@ -18,7 +18,7 @@ class MovableCircle {
   public draw() {
     push();
     if (this.isMouseHovering() || this.isMovable) {
-      fill(255);
+      fill("red");
     }
     if (this.isMovable) {
       this.x += mouseX - pmouseX;

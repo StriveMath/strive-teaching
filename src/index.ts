@@ -5,7 +5,7 @@ class Strive {
         return new MovableCircle(x, y, d);
     }
 
-    public static drawTickAxes = (lineColor = "rgb(20,45,217)", thickness = 3, spacing = 50, xoffset = 0, yoffset = 0,) => {
+    public static drawTickAxes = (lineColor = "rgb(20,45,217)", thickness = 3, spacing = 50, xoffset = 0, yoffset = 0, flip = false) => {
         push();
         translate(xoffset, yoffset);
         for (let i = 0; i < height; i += spacing) {
@@ -22,12 +22,17 @@ class Strive {
 
             fill("white");
             noStroke();
+            if (flip) {
+                scale(1, -1);
+            }
             text(i, 16, i);
             text(-i, 16, -i);
 
             text(i, i, 16);
             text(-i, -i, 16);
-
+            if (flip) {
+                scale(1, -1);
+            }
 
             strokeWeight(0.25);
             stroke(color("rgba(255,255,255,0.6)"));
