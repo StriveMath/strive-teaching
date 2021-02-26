@@ -1,20 +1,22 @@
 {
   "name": "@strivemath/strive",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
-  "main": "index.js",
+  "main": "dist/strive.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
     "dev": "parcel watch src/index.ts --out-file strive.js --out-dir dist --no-source-maps"
   },
   "keywords": [],
-  "author": "<jithinks112@gmail.com>",
+  "author": "Strive Education",
   "license": "ISC",
   "dependencies": {
+    "mathjs": "^9.2.0",
     "p5": "^1.2.0"
   },
   "devDependencies": {
+    "@types/mathjs": "^6.0.11",
     "@types/p5": "^0.9.1",
     "parcel-bundler": "^1.12.4",
     "typescript": "^4.1.5"
