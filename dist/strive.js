@@ -86843,7 +86843,7 @@ function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
   push();
   translate(xoffset, yoffset);
 
-  for (var i = -height; i < height; i += spacing) {
+  for (var i = 0; i < height; i += spacing) {
     //vertical tickmarks
     stroke(lineColor);
     strokeWeight(thickness);
@@ -86855,7 +86855,9 @@ function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
     fill("white");
     noStroke();
     responsiveText(i, 16, i);
+    responsiveText(-i, 16, -i);
     responsiveText(i, i, 16);
+    responsiveText(-i, -i, 16);
     strokeWeight(0.25);
     stroke(color("rgba(255,255,255,0.6)"));
     line(i, -height, i, height);

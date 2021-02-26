@@ -5,7 +5,7 @@ export function tickAxes(lineColor                      = "rgb(20,45,217)",
                          xoffset = 0, yoffset = 0, flip = false) {
     push();
     translate(xoffset, yoffset);
-    for (let i = -height; i < height; i += spacing) {
+    for (let i = 0; i < height; i += spacing) {
 
         //vertical tickmarks
         stroke(lineColor);
@@ -21,8 +21,11 @@ export function tickAxes(lineColor                      = "rgb(20,45,217)",
         noStroke();
 
         responsiveText(i, 16, i);
+        responsiveText(-i, 16, -i);
+
 
         responsiveText(i, i, 16);
+        responsiveText(-i, -i, 16);
 
 
         strokeWeight(0.25);
