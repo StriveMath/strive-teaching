@@ -27,8 +27,12 @@ class Strive {
     static reset() {
         return Transformer.reset();
     }
-
 }
 
 //@ts-ignore
 window.Strive = Strive;
+
+// @ts-ignore
+window.p5.prototype.registerMethod("post", () => {
+    Strive.reset();
+});
