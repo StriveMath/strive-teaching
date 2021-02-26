@@ -86813,6 +86813,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.tickAxes = void 0;
 
+var transformer_1 = require("./transformer");
+
 function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
   if (lineColor === void 0) {
     lineColor = "rgb(20,45,217)";
@@ -86841,7 +86843,7 @@ function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
   push();
   translate(xoffset, yoffset);
 
-  for (var i = 0; i < height; i += spacing) {
+  for (var i = -height; i < height; i += spacing) {
     //vertical tickmarks
     stroke(lineColor);
     strokeWeight(thickness);
@@ -86852,20 +86854,8 @@ function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
     line(-i, +5, -i, -5);
     fill("white");
     noStroke();
-
-    if (flip) {
-      scale(1, -1);
-    }
-
-    text(i, 16, i);
-    text(-i, 16, -i);
-    text(i, i, 16);
-    text(-i, -i, 16);
-
-    if (flip) {
-      scale(1, -1);
-    }
-
+    responsiveText(i, 16, i);
+    responsiveText(i, i, 16);
     strokeWeight(0.25);
     stroke(color("rgba(255,255,255,0.6)"));
     line(i, -height, i, height);
@@ -86885,7 +86875,20 @@ function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
 
 exports.tickAxes = tickAxes;
 ;
-},{}],"index.ts":[function(require,module,exports) {
+
+function responsiveText(val, x, y) {
+  var yScale = transformer_1.Transformer.basisMatrix.get([1, 1]);
+
+  if (yScale >= 0) {
+    text(val, x, y);
+  } else {
+    push();
+    scale(1, -1);
+    text(val, x, -y);
+    pop();
+  }
+}
+},{"./transformer":"lib/transformer.ts"}],"index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -86970,7 +86973,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59438" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51773" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
