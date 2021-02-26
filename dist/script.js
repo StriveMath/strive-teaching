@@ -1,9 +1,22 @@
 function setup() {
-	createCanvas(400, 400)
+	createCanvas(800, 800)
+
 }
 
-let matrix = math.matrix([[1, 0], [0, 1]])
+let run = true
 
 function draw() {
-	background("black")
+	if (run) {
+		background("black")
+		Strive.translate(width / 2, height / 2)
+		Strive.scale(1, -1)
+		Strive.drawTickAxes()
+		console.log(Strive.mouse())
+	}
+	run = false
+
+}
+
+function mousePressed() {
+	console.log(Strive.mouse())
 }

@@ -34,15 +34,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           return nodeRequire(name);
         }
 
-        var err = new Error('Cannot find module \'' + name + '\'');
-        err.code = 'MODULE_NOT_FOUND';
-        throw err;
-      }
+		  var err = new Error('Cannot find module \'' + name + '\'');
+		  err.code = 'MODULE_NOT_FOUND';
+		  throw err;
+	  }
 
-      localRequire.resolve = resolve;
-      localRequire.cache = {};
+		localRequire.resolve = resolve;
+		localRequire.cache = {};
 
-      var module = cache[name] = new newRequire.Module(name);
+		var module = cache[name] = new newRequire.Module(name);
 
 		modules[name][0].call(module.exports, localRequire, module, module.exports, this);
 	}
@@ -93,19 +93,19 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     var mainExports = newRequire(entry[entry.length - 1]);
 
     // CommonJS
-    if (typeof exports === "object" && typeof module !== "undefined") {
-		module.exports = mainExports;
+	  if (typeof exports === "object" && typeof module !== "undefined") {
+		  module.exports = mainExports;
 
-		// RequireJS
-	} else if (typeof define === "function" && define.amd) {
-		define(function () {
-			return mainExports;
-		});
+		  // RequireJS
+	  } else if (typeof define === "function" && define.amd) {
+		  define(function () {
+			  return mainExports;
+		  });
 
-		// <script>
-	} else if (globalName) {
-		this[globalName] = mainExports;
-	}
+		  // <script>
+	  } else if (globalName) {
+		  this[globalName] = mainExports;
+	  }
   }
 
 	// Override the current require with this new one
@@ -92213,12 +92213,103 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			});
 		});
 	}, {"./entry/mainAny.js": "../node_modules/mathjs/lib/esm/entry/mainAny.js"}],
+	"lib/transformer.ts": [function (require, module, exports) {
+		"use strict";
+
+		var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+			if (k2 === undefined) k2 = k;
+			Object.defineProperty(o, k2, {
+				enumerable: true,
+				get: function get() {
+					return m[k];
+				}
+			});
+		} : function (o, m, k, k2) {
+			if (k2 === undefined) k2 = k;
+			o[k2] = m[k];
+		});
+
+		var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+			Object.defineProperty(o, "default", {
+				enumerable: true,
+				value: v
+			});
+		} : function (o, v) {
+			o["default"] = v;
+		});
+
+		var __importStar = this && this.__importStar || function (mod) {
+			if (mod && mod.__esModule) return mod;
+			var result = {};
+			if (mod != null) for (var k in mod) {
+				if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+			}
+
+			__setModuleDefault(result, mod);
+
+			return result;
+		};
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+		exports.Transformer = void 0;
+
+		var math = __importStar(require("mathjs"));
+
+		window.math = math;
+
+		var Transformer =
+			/** @class */
+			function () {
+				function Transformer() {
+				}
+
+				Transformer.translate = function (x, y) {
+					var transform = math.matrix([[1, 0, 0], [0, 1, 0], [x, y, 1]]);
+					this.basisMatrix = math.multiply(transform, this.basisMatrix);
+					translate(x, y);
+					return this.basisMatrix;
+				};
+
+				Transformer.scale = function (x, y) {
+					var transform = math.matrix([[x, 0, 0], [0, y, 0], [0, 0, 1]]);
+					this.basisMatrix = math.multiply(transform, this.basisMatrix);
+					scale(x, y);
+					console.log(this.basisMatrix);
+					return this.basisMatrix;
+				};
+
+				Transformer.mouse = function () {
+					var inv = math.inv(this.basisMatrix);
+					console.log(inv);
+					var tMouseX = mouseX * inv.get([0, 0]) + mouseY * inv.get([1, 0]) + 1 * inv.get([2, 0]);
+					var tMouseY = mouseX * inv.get([0, 1]) + mouseY * inv.get([1, 1]) + 1 * inv.get([2, 1]);
+					return {
+						x: tMouseX,
+						y: tMouseY
+					};
+				};
+
+				Transformer.reset = function () {
+					this.basisMatrix = math.matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
+				};
+
+				Transformer.basisMatrix = math.matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
+				return Transformer;
+			}();
+
+		exports.Transformer = Transformer;
+	}, {"mathjs": "../node_modules/mathjs/lib/esm/index.js"}],
 	"lib/movableCircle.ts": [function (require, module, exports) {
 		"use strict";
 
 		Object.defineProperty(exports, "__esModule", {
 			value: true
 		});
+
+		var transformer_1 = require("./transformer");
+
 		var anyMoving = false;
 
 		var MovableCircle =
@@ -92248,8 +92339,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					}
 
 					if (this.isMovable) {
-						this.x += mouseX - pmouseX;
-						this.y += mouseY - pmouseY;
+						this.x = transformer_1.Transformer.mouse().x;
+						this.y = transformer_1.Transformer.mouse().y;
 					}
 
 					circle(this.x, this.y, this.d);
@@ -92258,7 +92349,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 				};
 
 				MovableCircle.prototype.isMouseHovering = function () {
-					return dist(mouseX, mouseY, this.x, this.y) < this.d / 2;
+					return dist(transformer_1.Transformer.mouse().x, transformer_1.Transformer.mouse().y, this.x, this.y) < this.d / 2;
 				};
 
 				MovableCircle.prototype.makeMovable = function () {
@@ -92274,38 +92365,88 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			}();
 
 		exports.default = MovableCircle;
-	}, {}],
-	"lib/transformer.ts": [function (require, module, exports) {
+	}, {"./transformer": "lib/transformer.ts"}],
+	"lib/tickAxes.ts": [function (require, module, exports) {
 		"use strict";
-
-		var __importDefault = this && this.__importDefault || function (mod) {
-			return mod && mod.__esModule ? mod : {
-				"default": mod
-			};
-		};
 
 		Object.defineProperty(exports, "__esModule", {
 			value: true
 		});
-		exports.Transformer = void 0;
+		exports.tickAxes = void 0;
 
-		var mathjs_1 = __importDefault(require("mathjs"));
+		function tickAxes(lineColor, thickness, spacing, xoffset, yoffset, flip) {
+			if (lineColor === void 0) {
+				lineColor = "rgb(20,45,217)";
+			}
 
-		var Transformer =
-			/** @class */
-			function () {
-				function Transformer() {
-					this.basisMatrix = mathjs_1.default.matrix([[1, 0], [0, 1]]);
+			if (thickness === void 0) {
+				thickness = 3;
+			}
+
+			if (spacing === void 0) {
+				spacing = 50;
+			}
+
+			if (xoffset === void 0) {
+				xoffset = 0;
+			}
+
+			if (yoffset === void 0) {
+				yoffset = 0;
+			}
+
+			if (flip === void 0) {
+				flip = false;
+			}
+
+			push();
+			translate(xoffset, yoffset);
+
+			for (var i = 0; i < height; i += spacing) {
+				//vertical tickmarks
+				stroke(lineColor);
+				strokeWeight(thickness);
+				line(5, i, -5, i);
+				line(5, -i, -5, -i); //horizontal tickmarks
+
+				line(i, +5, i, -5);
+				line(-i, +5, -i, -5);
+				fill("white");
+				noStroke();
+
+				if (flip) {
+					scale(1, -1);
 				}
 
-				Transformer.prototype.translate = function (x, y) {
-				};
+				text(i, 16, i);
+				text(-i, 16, -i);
+				text(i, i, 16);
+				text(-i, -i, 16);
 
-				return Transformer;
-			}();
+				if (flip) {
+					scale(1, -1);
+				}
 
-		exports.Transformer = Transformer;
-	}, {"mathjs": "../node_modules/mathjs/lib/esm/index.js"}],
+				strokeWeight(0.25);
+				stroke(color("rgba(255,255,255,0.6)"));
+				line(i, -height, i, height);
+				line(-i, -height, -i, height);
+				line(-width, i, width, i);
+				line(-width, -i, width, -i);
+			}
+
+			stroke(lineColor);
+			strokeWeight(5); //horizontal line
+
+			line(-width, 0, width, 0); //vertical line
+
+			line(0, height, 0, -height);
+			pop();
+		}
+
+		exports.tickAxes = tickAxes;
+		;
+	}, {}],
 	"index.ts": [function (require, module, exports) {
 		"use strict";
 
@@ -92319,11 +92460,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			value: true
 		});
 
-		var mathjs_1 = __importDefault(require("mathjs"));
-
-		window.math = mathjs_1.default;
-
 		var movableCircle_1 = __importDefault(require("./lib/movableCircle"));
+
+		var tickAxes_1 = require("./lib/tickAxes");
 
 		var transformer_1 = require("./lib/transformer");
 
@@ -92337,80 +92476,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					return new movableCircle_1.default(x, y, d);
 				};
 
-				Strive.translate = function (x, y) {
-					this.transformer.translate(x, y);
+				Strive.drawTickAxes = function () {
+					tickAxes_1.tickAxes();
 				};
 
-				Strive.transformer = new transformer_1.Transformer();
+				Strive.translate = function (x, y) {
+					transformer_1.Transformer.translate(x, y);
+				};
 
-				Strive.drawTickAxes = function (lineColor, thickness, spacing, xoffset, yoffset, flip) {
-					if (lineColor === void 0) {
-						lineColor = "rgb(20,45,217)";
-					}
+				Strive.scale = function (x, y) {
+					transformer_1.Transformer.scale(x, y);
+				};
 
-					if (thickness === void 0) {
-						thickness = 3;
-					}
+				Strive.mouse = function () {
+					return transformer_1.Transformer.mouse();
+				};
 
-					if (spacing === void 0) {
-						spacing = 50;
-					}
-
-					if (xoffset === void 0) {
-						xoffset = 0;
-					}
-
-					if (yoffset === void 0) {
-						yoffset = 0;
-					}
-
-					if (flip === void 0) {
-						flip = false;
-					}
-
-					push();
-					translate(xoffset, yoffset);
-
-					for (var i = 0; i < height; i += spacing) {
-						//vertical tickmarks
-						stroke(lineColor);
-						strokeWeight(thickness);
-						line(5, i, -5, i);
-						line(5, -i, -5, -i); //horizontal tickmarks
-
-						line(i, +5, i, -5);
-						line(-i, +5, -i, -5);
-						fill("white");
-						noStroke();
-
-						if (flip) {
-							scale(1, -1);
-						}
-
-						text(i, 16, i);
-						text(-i, 16, -i);
-						text(i, i, 16);
-						text(-i, -i, 16);
-
-						if (flip) {
-							scale(1, -1);
-						}
-
-						strokeWeight(0.25);
-						stroke(color("rgba(255,255,255,0.6)"));
-						line(i, -height, i, height);
-						line(-i, -height, -i, height);
-						line(-width, i, width, i);
-						line(-width, -i, width, -i);
-					}
-
-					stroke(lineColor);
-					strokeWeight(5); //horizontal line
-
-					line(-width, 0, width, 0); //vertical line
-
-					line(0, height, 0, -height);
-					pop();
+				Strive.reset = function () {
+					return transformer_1.Transformer.reset();
 				};
 
 				return Strive;
@@ -92419,8 +92502,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 		window.Strive = Strive;
 	}, {
-		"mathjs": "../node_modules/mathjs/lib/esm/index.js",
 		"./lib/movableCircle": "lib/movableCircle.ts",
+		"./lib/tickAxes": "lib/tickAxes.ts",
 		"./lib/transformer": "lib/transformer.ts"
 	}],
 	"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js": [function (require, module, exports) {
@@ -92452,7 +92535,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
 			var hostname = "" || location.hostname;
 			var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-			var ws = new WebSocket(protocol + '://' + hostname + ':' + "58963" + '/');
+			var ws = new WebSocket(protocol + '://' + hostname + ':' + "49648" + '/');
 
 			ws.onmessage = function (event) {
 				checkedAssets = {};
