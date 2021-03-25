@@ -20,6 +20,10 @@ class Strive {
         Transformer.scale(x, y);
     }
 
+    static rotate(angle: number) {
+        Transformer.rotate(angle);
+    }
+
     static mouse() {
         return Transformer.mouse();
     }

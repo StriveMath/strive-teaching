@@ -18,6 +18,13 @@ export class Transformer {
         return this.basisMatrix;
     }
 
+    static rotate(angle: number) {
+        const transform = math.matrix([[cos(angle), sin(angle), 0], [-sin(angle), cos(angle), 0], [0, 0, 1]]);
+        this.basisMatrix = math.multiply(transform, this.basisMatrix);
+        rotate(angle);
+        return this.basisMatrix;
+    }
+
     static scale(x: number, y: number) {
 
         const transform = math.matrix(([[x, 0, 0], [0, y, 0], [0, 0, 1]]));
