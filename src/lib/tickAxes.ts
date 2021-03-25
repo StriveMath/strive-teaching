@@ -1,3 +1,5 @@
+import {Transformer} from "./transformer";
+
 export function tickAxes(lineColor                      = "rgb(20,45,217)",
                          thickness                      = 3, spacing = 50,
                          xoffset = 0, yoffset = 0, flip = false) {
@@ -17,17 +19,14 @@ export function tickAxes(lineColor                      = "rgb(20,45,217)",
 
         fill("white");
         noStroke();
-        if (flip) {
-            scale(1, -1);
-        }
-        text(i, 16, i);
-        text(-i, 16, -i);
 
-        text(i, i, 16);
-        text(-i, -i, 16);
-        if (flip) {
-            scale(1, -1);
-        }
+        responsiveText(i, 16, i);
+        responsiveText(-i, 16, -i);
+
+
+        responsiveText(i, i, 16);
+        responsiveText(-i, -i, 16);
+
 
         strokeWeight(0.25);
         stroke(color("rgba(255,255,255,0.6)"));
@@ -48,3 +47,16 @@ export function tickAxes(lineColor                      = "rgb(20,45,217)",
 
     pop();
 };
+
+
+function responsiveText(val: any, x: number, y: number) {
+    const yScale = Transformer.basisMatrix.get([1, 1]);
+    if (yScale >= 0) {
+        text(val, x, y);
+    } else {
+        push();
+        scale(1, -1);
+        text(val, x, -y);
+        pop();
+    }
+}
