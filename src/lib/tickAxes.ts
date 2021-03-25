@@ -1,7 +1,7 @@
 import {Transformer} from "./transformer";
 
 export function tickAxes(lineColor                      = "rgb(20,45,217)",
-                         thickness                      = 3, spacing         = 50,
+                         thickness                      = 3, spacing = 50,
                          xoffset = 0, yoffset = 0, flip = false) {
     push();
     translate(xoffset, yoffset);
