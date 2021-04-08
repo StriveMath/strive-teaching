@@ -6,7 +6,7 @@
   "include": [
     "src",
     "node_modules/@types",
-    "global.d.ts"
+    "./global.d.ts"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
@@ -81,5 +81,9 @@
     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true
     /* Disallow inconsistently-cased references to the same file. */
+  },
+  "parcel-plugin-typescript": {
+    // If true type-checking is disabled
+    "transpileOnly": true
   }
 }
