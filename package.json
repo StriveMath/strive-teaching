@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
-    "dev": "parcel watch src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
     "start": "parcel index.html --open"
   },
   "keywords": [],
