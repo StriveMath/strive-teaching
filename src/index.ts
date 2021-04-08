@@ -33,6 +33,7 @@ export class Strive {
     return Transformer.reset();
   }
 }
+
 window.p5 = p5;
 
 //@ts-ignore
