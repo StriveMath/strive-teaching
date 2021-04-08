@@ -1,6 +1,6 @@
 {
   "name": "@strivemath/strive",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/strive.js",
   "scripts": {
@@ -8,6 +8,9 @@
     "build": "rm -rf dist && parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
     "start": "parcel index.html --open"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "Strive Education",
   "license": "ISC",
