@@ -1,11 +1,11 @@
 {
   "name": "@strivemath/strive",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "dist/strive.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
+    "build": "rm -rf dist && parcel build src/index.ts --out-file strive.js --out-dir dist --no-source-maps",
     "start": "parcel index.html --open"
   },
   "keywords": [],
