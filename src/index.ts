@@ -2,6 +2,7 @@ import p5 from "p5";
 import MovableCircle from "./lib/movableCircle";
 import { tickAxes } from "./lib/tickAxes";
 import { Transformer } from "./lib/transformer";
+import { arrow } from "./lib/arrow";
 
 
 export class Strive {
@@ -31,6 +32,15 @@ export class Strive {
 
   static reset() {
     return Transformer.reset();
+  }
+
+  static drawArrow(
+    tailX:number, tailY:number, 
+    headX:number, headY:number
+  ) {
+    arrow(
+      tailX, tailY, headX, headY
+    );
   }
 }
 
