@@ -8,7 +8,7 @@ window.setup = () => {
 // @ts-ignore
 window.draw = () => {
   background("black");
-  Strive.rotate(100);
-  Strive.translate(100,100)
+  stroke("white")
+  Strive.drawArrow(100,100,200,200)
   Strive.drawTickAxes();
 };
