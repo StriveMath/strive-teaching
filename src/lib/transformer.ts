@@ -34,6 +34,7 @@ export class Transformer {
 
 
   static text(stg: string, x: number, y: number) {
+    push();
     let yDir = this.basisMatrix.get([1, 1]);
     if (yDir < 0) {
       scale(1, -1);
@@ -41,6 +42,7 @@ export class Transformer {
     } else {
       text(stg, x, y);
     }
+    pop();
 
   }
 
