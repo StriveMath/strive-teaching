@@ -9,7 +9,7 @@
     "start": "parcel index.html --open"
   },
   "files": [
-    "dist"
+    "dist/*"
   ],
   "keywords": [],
   "author": "Strive Education",

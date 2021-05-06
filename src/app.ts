@@ -8,7 +8,11 @@ window.setup = () => {
 // @ts-ignore
 window.draw = () => {
   background("black");
-  Strive.rotate(100);
-  Strive.translate(100,100)
+  stroke("white")
+  Strive.translate(width/2, height/2)
+  Strive.drawArrow(100,100,200,200)
+  Strive.scale(1,-1)
   Strive.drawTickAxes();
+  fill("white")
+  Strive.text("Hello World", 100,100)
 };
