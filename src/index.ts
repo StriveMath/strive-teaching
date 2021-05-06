@@ -34,12 +34,16 @@ export class Strive {
     return Transformer.reset();
   }
 
+  static text(stg: string, x: number, y: number) {
+    return Transformer.text(stg, x, y);
+  }
+
   static drawArrow(
-    tailX:number, tailY:number, 
-    headX:number, headY:number
+    tailX: number, tailY: number,
+    headX: number, headY: number,
   ) {
     arrow(
-      tailX, tailY, headX, headY
+      tailX, tailY, headX, headY,
     );
   }
 }
