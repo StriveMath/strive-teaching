@@ -38,7 +38,7 @@ export class Strive {
     return Transformer.text(stg, x, y);
   }
 
-  static drawArrow(
+  static arrow(
     tailX: number, tailY: number,
     headX: number, headY: number,
   ) {
