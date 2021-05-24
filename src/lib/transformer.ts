@@ -2,7 +2,6 @@ import * as math from "mathjs";
 
 window.math = math;
 
-
 export class Transformer {
 
   static basisMatrix = math.matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
