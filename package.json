@@ -18,6 +18,9 @@
     "mathjs": "^9.2.0",
     "p5": "^1.2.0"
   },
+  "browserslist": [
+    "since 2017-06"
+  ],
   "devDependencies": {
     "@types/mathjs": "^6.0.11",
     "@types/p5": "^0.9.1",

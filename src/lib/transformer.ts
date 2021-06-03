@@ -1,4 +1,5 @@
 import * as math from "mathjs";
+import { tickAxes } from './tickAxes';
 
 window.math = math;
 
@@ -58,5 +59,25 @@ export class Transformer {
 
   static reset() {
     this.basisMatrix = math.matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
+  }
+
+  static easyStart() {
+    background("black");
+    translate(0, height)
+    this.scale(1,-1)
+    stroke("white")
+    fill("white")
+    textSize(18)
+    tickAxes()
+    stroke("green")
+    strokeWeight(1)
+    let y = height-mouseY
+    line(0, y, mouseX, y)
+    line(mouseX, 0,mouseX, y)
+    noStroke()
+    fill("green")
+    this.text("(" + Math.floor(mouseX) + "," + Math.floor(y) + ")", mouseX+10, y)
+
+    return this.basisMatrix;
   }
 }

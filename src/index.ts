@@ -38,6 +38,10 @@ export class Strive {
     return Transformer.text(stg, x, y);
   }
 
+  static easyStart() {
+    return Transformer.easyStart();
+  }
+
   static drawArrow(
     tailX: number, tailY: number,
     headX: number, headY: number,
