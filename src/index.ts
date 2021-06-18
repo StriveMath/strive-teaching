@@ -3,6 +3,7 @@ import MovableCircle from "./lib/movableCircle";
 import { tickAxes } from "./lib/tickAxes";
 import { Transformer } from "./lib/transformer";
 import { arrow } from "./lib/arrow";
+import { Utils } from './lib/utils'
 
 
 export class Strive {
@@ -45,6 +46,10 @@ export class Strive {
     arrow(
       tailX, tailY, headX, headY,
     );
+  }
+
+  static easyStart() {
+    Utils.easyStart();
   }
 }
 
